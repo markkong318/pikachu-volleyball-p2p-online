@@ -42,6 +42,10 @@ module.exports = {
           to: 'en/update-history/index.html',
         },
         {
+          from: 'src/sp/update-history/index.html',
+          to: 'sp/update-history/index.html',
+        },
+        {
           from: 'src/ko/update-history/index.html',
           to: 'ko/update-history/index.html',
         },
@@ -65,6 +69,16 @@ module.exports = {
       },
     }),
     new HtmlWebpackPlugin({
+      template: 'src/en/index.html',
+      filename: 'sp/index.html',
+      chunks: ['runtime', 'main'],
+      chunksSortMode: 'manual',
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+      },
+    }),
+    new HtmlWebpackPlugin({
       template: 'src/ko/index.html',
       filename: 'ko/index.html',
       chunks: ['runtime', 'ko', 'main'],
@@ -77,6 +91,16 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/en/replay/index.html',
       filename: 'en/replay/index.html',
+      chunks: ['runtime', 'main_replay'],
+      chunksSortMode: 'manual',
+      minify: {
+        collapseWhitespace: true,
+        removeComments: true,
+      },
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/sp/replay/index.html',
+      filename: 'sp/replay/index.html',
       chunks: ['runtime', 'main_replay'],
       chunksSortMode: 'manual',
       minify: {
