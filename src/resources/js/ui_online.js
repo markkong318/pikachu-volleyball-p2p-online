@@ -2,7 +2,10 @@
  * Manages outputs to and inputs from the html elements UI
  * and event listeners relevant to the UI of the web page
  */
+
 'use strict';
+import qrcode from 'qrcode';
+
 import {
   channel,
   createRoom,
@@ -23,6 +26,7 @@ import {
 } from './quick_match/quick_match.js';
 import { enableChat } from './chat_display.js';
 import { replaySaver } from './replay/replay_saver.js';
+import { isHost } from './party_online';
 import '../style.css';
 
 /** @typedef {import('./pikavolley_online.js').PikachuVolleyballOnline} PikachuVolleyballOnline */
@@ -637,6 +641,12 @@ function printCurrentRoomID(roomId) {
     10
   )}-${roomId.slice(10, 15)}-${roomId.slice(15)}`;
   document.getElementById('current-room-id').textContent = prettyRoomId;
+
+  if (isHost()) {
+    const url = `${window.location.href}?partyId=${prettyRoomId}`;
+    printLog(`share: ${url}`);
+    printQrCodeLog(url);
+  }
 }
 
 function getJoinRoomID() {
@@ -743,8 +753,25 @@ export function printLog(log) {
     elementId = 'connection-log-quick-match';
   }
   const connectionLog = document.getElementById(elementId);
-  connectionLog.textContent += `${log}\n`;
-  connectionLog.scrollIntoView();
+
+  const div = document.createElement('div');
+  div.innerHTML = `${log}`;
+  connectionLog.appendChild(div);
+
+  // connectionLog.scrollIntoView();
+}
+
+export function printQrCodeLog(text) {
+  let elementId = 'connection-log-with-friend';
+  if (channel.isQuickMatch) {
+    elementId = 'connection-log-quick-match';
+  }
+  const connectionLog = document.getElementById(elementId);
+
+  const canvas = document.createElement('canvas');
+  qrcode.toCanvas(canvas, text);
+
+  connectionLog.appendChild(canvas);
 }
 
 export function printPeriodInLog() {
@@ -753,8 +780,12 @@ export function printPeriodInLog() {
     elementId = 'connection-log-quick-match';
   }
   const connectionLog = document.getElementById(elementId);
-  connectionLog.textContent += '.';
-  connectionLog.scrollIntoView();
+
+  const p = document.createElement('p');
+  p.innerHTML = '.';
+  connectionLog.appendChild(p);
+
+  // connectionLog.scrollIntoView();
 }
 
 export function printNotValidRoomIdMessage() {

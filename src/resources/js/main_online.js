@@ -38,15 +38,22 @@
  *  - "qucik_match_server_url.template.js": Fill this template the url of the quick match server and change
  *                                          the file name to "qucik_match_server_url.js"
  */
+
 'use strict';
 import * as PIXI from 'pixi.js-legacy';
 import 'pixi-sound';
+import FontFaceObserver from 'fontfaceobserver';
 import { PikachuVolleyballOnline } from './pikavolley_online.js';
 import { ASSETS_PATH } from './offline_version_js/assets_path.js';
 import { channel } from './data_channel/data_channel.js';
 import { setUpUI, setUpUIAfterLoadingGameAssets } from './ui_online.js';
+import { setParty } from './party_online';
 import { setGetSpeechBubbleNeeded } from './chat_display.js';
+import { App } from './app';
+import { Gamepad } from './gamepad';
 import '../style.css';
+
+window.PIXI = PIXI;
 
 const TEXTURES = ASSETS_PATH.TEXTURES;
 TEXTURES.WITH_COMPUTER = TEXTURES.WITH_FRIEND;
@@ -57,29 +64,41 @@ settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 settings.ROUND_PIXELS = true;
 
 const renderer = PIXI.autoDetectRenderer({
-  width: 432,
-  height: 304,
+  width: window.innerWidth,
+  height: window.innerHeight,
   antialias: false,
   backgroundColor: 0x000000,
   transparent: false,
+  resolution: 1,
 });
 const stage = new PIXI.Container();
 const ticker = new PIXI.Ticker();
 const loader = new PIXI.Loader();
 
+const font = new FontFaceObserver('game-boy');
+
 document.querySelector('#game-canvas-container').appendChild(renderer.view);
 
-renderer.render(stage); // To make the initial canvas painting stable in the Firefox browser.
+const gamePad = new Gamepad();
+const app = new App(renderer, stage, gamePad);
+
+renderer.render(app.view);
+
+// renderer.render(stage); // To make the initial canvas painting stable in the Firefox browser.
 loader.add(ASSETS_PATH.SPRITE_SHEET);
 for (const prop in ASSETS_PATH.SOUNDS) {
   loader.add(ASSETS_PATH.SOUNDS[prop]);
 }
 setUpLoaderProgresBar();
 channel.callbackAfterDataChannelOpened = () => {
-  loader.load(setup);
+  // loader.load(setup);
+  font.load()
+    .then(() => gamePad.init())
+    .then(() => loader.load(setup));
 };
 
 setUpUI();
+setParty();
 
 /**
  * Set up the loader progress bar.
@@ -116,7 +135,7 @@ function start(pikaVolley) {
     // it is recovered by the callback gameLoop which is called after peer input received.)
     // Now the rendering is delayed 40ms (when pikaVolley.normalFPS == 25)
     // behind gameLoop.
-    renderer.render(stage);
+    renderer.render(app.view);
     pikaVolley.gameLoop();
   });
   ticker.start();

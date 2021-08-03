@@ -53,6 +53,14 @@ module.exports = {
           from: 'src/resources/style.css',
           to: 'resources/style.css',
         },
+        {
+          from: 'src/sp/game-boy',
+          to: 'sp/game-boy',
+        },
+        {
+          from: 'src/sp/gbboot',
+          to: 'sp/gbboot',
+        },
       ],
     }),
     new MiniCssExtractPlugin({
@@ -69,7 +77,7 @@ module.exports = {
       },
     }),
     new HtmlWebpackPlugin({
-      template: 'src/en/index.html',
+      template: 'src/sp/index.html',
       filename: 'sp/index.html',
       chunks: ['runtime', 'main'],
       chunksSortMode: 'manual',

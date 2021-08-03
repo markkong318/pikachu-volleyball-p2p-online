@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'gbboot';
+    font-style: normal;
+    font-weight: normal;
+    src: local('gbboot'), url('./gbboot.ttf') format('truetype');
+}

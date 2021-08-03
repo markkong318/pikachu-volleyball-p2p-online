@@ -38,8 +38,10 @@
   "dependencies": {
     "file-saver": "^2.0.2",
     "firebase": "^7.21.0",
+    "fontfaceobserver": "^2.1.0",
     "pixi-sound": "3.0.5",
     "pixi.js-legacy": "5.3.3",
+    "qrcode": "^1.4.4",
     "seedrandom": "3.0.5"
   }
 }

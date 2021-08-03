@@ -17,10 +17,12 @@
       sizes="32x32"
       href="../resources/assets/images/IDI_PIKAICON-0.png"
     />
+    <link rel="stylesheet" type="text/css" href="./game-boy/style.css">
+    <link rel="stylesheet" type="text/css" href="gbboot/style.css">
   </head>
   <body>
     <div id="before-connection">
-      <div id="about-box-head">
+      <div id="about-box-head" style="display: none;">
         <h1>Pikachu Volleyball <span class="no-wrap">P2P Online</span></h1>
         <p class="languages">
           &check; English |
@@ -61,7 +63,7 @@
           <a href="./update-history/" target="_self">Update history</a>
         </p>
       </div>
-      <div class="margin-top limit-width">
+      <div class="margin-top limit-width" style="display: none;">
         <div>
           <img
             class="screenshot"
@@ -192,11 +194,11 @@
           </div>
         </div>
       </div>
-      <div class="margin-top limit-width grid-1-1">
+      <div class="margin-top limit-width grid-1-1" style="display: none;">
         <button id="quick-match-btn">Quick Match (Enter)</button>
         <button id="with-your-friend-btn">With one of your friends</button>
       </div>
-      <div id="about-with-your-friend" class="margin-top limit-width hidden">
+      <div id="about-with-your-friend" class="margin-top limit-width hidden" style="display: none;">
         <div>
           <p>
             <span class="thick"
@@ -240,12 +242,13 @@
           />
           <button type="button" id="join-btn">join room</button>
         </div>
-        <div class="margin-top log">
-          <p>
-            <span class="thick">Connection Log:</span>
-          </p>
-          <div id="connection-log-with-friend" class="pre-wrap"></div>
-        </div>
+
+      </div>
+      <div class="margin-top limit-width log">
+        <p>
+          <span class="thick">Connection Log:</span>
+        </p>
+        <div id="connection-log-with-friend" class="pre-wrap"></div>
       </div>
       <div
         id="press-enter-to-quick-match"
@@ -409,7 +412,7 @@
       </div>
     </div>
     <div id="flex-container" class="hidden">
-      <div id="menu-bar">
+      <div id="menu-bar" style="display: none;">
         <div class="btn-container left">
           <div class="relative-container">
             <button id="options-dropdown-btn" class="btn dropdown-btn">
@@ -490,7 +493,7 @@
       <div id="game-canvas-container">
         <div id="player1-chat-box" class="chat-box pre-wrap hidden"></div>
         <div id="player2-chat-box" class="chat-box pre-wrap hidden"></div>
-        <div class="nicknames-container">
+        <div class="nicknames-container" style="display: none;">
           <div class="nickname-and-partial-ip left">
             <span id="player1-nickname" class="nickname"></span>
             <span id="player1-partial-ip" class="partial-ip"></span>
@@ -644,7 +647,7 @@
           </div>
         </div>
       </div>
-      <div id="chat-input-here">
+      <div id="chat-input-here" style="display: none;">
         <div id="chat-input-and-send-btn-container" class="hidden">
           <input
             type="text"
