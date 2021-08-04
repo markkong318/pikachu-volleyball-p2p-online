@@ -1,0 +1,6 @@
+@font-face {
+    font-family: 'game-boy';
+    font-style: normal;
+    font-weight: normal;
+    src: local('game-boy'), url('./game-boy.otf') format('opentype');
+}
