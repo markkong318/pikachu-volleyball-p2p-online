@@ -61,6 +61,10 @@ module.exports = {
           from: 'src/sp/gbboot',
           to: 'sp/gbboot',
         },
+        {
+          from: 'src/sp/img',
+          to: 'sp/img',
+        },
       ],
     }),
     new MiniCssExtractPlugin({

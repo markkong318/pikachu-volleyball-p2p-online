@@ -448,17 +448,15 @@ export function setUpUI() {
       chatInput.disabled = true;
       // @ts-ignore
       sendBtn.disabled = true;
-      chatDisablingBtn.textContent = document.getElementById(
-        'text-enable-chat'
-      ).textContent;
+      chatDisablingBtn.textContent =
+        document.getElementById('text-enable-chat').textContent;
       chatDisablingBtn.blur();
     } else {
       enableChat(true);
       // @ts-ignore
       chatOpenBtn.disabled = false;
-      chatDisablingBtn.textContent = document.getElementById(
-        'text-disable-chat'
-      ).textContent;
+      chatDisablingBtn.textContent =
+        document.getElementById('text-disable-chat').textContent;
       chatDisablingBtn.blur();
     }
   });
@@ -644,7 +642,11 @@ function printCurrentRoomID(roomId) {
 
   if (isHost()) {
     const url = `${window.location.href}?partyId=${prettyRoomId}`;
-    printLog(`share: ${url}`);
+    printLog(`Share this link to your friend:`, '#000000');
+    printLog(
+      `<div onclick="navigator.share&&navigator.share({title:'Pikachu Volleyball',text:'Let\\&apos;s play the game',url:'${url}'})">${url} <img src="./img/share.png"></div>`,
+      '#000000'
+    );
     printQrCodeLog(url);
   }
 }
@@ -686,12 +688,14 @@ export function printQuickMatchState(state) {
     case MESSAGE_TO_CLIENT.keepWait:
       return;
     case MESSAGE_TO_CLIENT.waitPeerConnection:
-      log = document.getElementById('waiting-peer-to-connect-message')
-        .textContent;
+      log = document.getElementById(
+        'waiting-peer-to-connect-message'
+      ).textContent;
       break;
     case MESSAGE_TO_CLIENT.connectToPeerAfterAWhile:
-      log = document.getElementById('connect-to-peer-after-a-while-message')
-        .textContent;
+      log = document.getElementById(
+        'connect-to-peer-after-a-while-message'
+      ).textContent;
       break;
     case MESSAGE_TO_CLIENT.connectToPeer:
       log = document.getElementById('connect-to-peer-message').textContent;
@@ -706,8 +710,9 @@ export function printQuickMatchState(state) {
 }
 
 export function printFailedToConnectToQuickMatchServer() {
-  const log = document.getElementById('failed-to-connect-to-server')
-    .textContent;
+  const log = document.getElementById(
+    'failed-to-connect-to-server'
+  ).textContent;
   printQuickMatchLog(log);
 }
 
@@ -732,22 +737,19 @@ export function printNumberOfSuccessfulQuickMatches(
   withinLast1hour,
   withinLast10minutes
 ) {
-  document.getElementById('within-24-hours').textContent = String(
-    withinLast24hours
-  );
-  document.getElementById('within-1-hour').textContent = String(
-    withinLast1hour
-  );
-  document.getElementById('within-10-minutes').textContent = String(
-    withinLast10minutes
-  );
+  document.getElementById('within-24-hours').textContent =
+    String(withinLast24hours);
+  document.getElementById('within-1-hour').textContent =
+    String(withinLast1hour);
+  document.getElementById('within-10-minutes').textContent =
+    String(withinLast10minutes);
 }
 
 /**
  * Print log to connection log box
  * @param {string} log
  */
-export function printLog(log) {
+export function printLog(log, color = '#CCCCCC') {
   let elementId = 'connection-log-with-friend';
   if (channel.isQuickMatch) {
     elementId = 'connection-log-quick-match';
@@ -756,6 +758,7 @@ export function printLog(log) {
 
   const div = document.createElement('div');
   div.innerHTML = `${log}`;
+  div.style.color = color;
   connectionLog.appendChild(div);
 
   // connectionLog.scrollIntoView();
@@ -781,9 +784,9 @@ export function printPeriodInLog() {
   }
   const connectionLog = document.getElementById(elementId);
 
-  const p = document.createElement('p');
-  p.innerHTML = '.';
-  connectionLog.appendChild(p);
+  const span = document.createElement('span');
+  span.innerHTML = '.';
+  connectionLog.appendChild(span);
 
   // connectionLog.scrollIntoView();
 }
