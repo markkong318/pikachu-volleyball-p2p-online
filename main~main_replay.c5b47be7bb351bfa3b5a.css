@@ -33,8 +33,10 @@ html {
   user-select: none;
   -webkit-user-select: none;
   -moz-user-select: none;
+
   -webkit-touch-callout: none;
 }
+
 *,
 *:before,
 *:after {
@@ -696,6 +698,11 @@ label[for='fps-input'] {
   width: calc(var(--btn-width) / 2);
   font-size: calc(var(--font-size) / 1.2);
 }
+.allow-copy {
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+}
 
 
-/*# sourceMappingURL=main~main_replay.a07615b9769e7920b859.css.map*/
+/*# sourceMappingURL=main~main_replay.c5b47be7bb351bfa3b5a.css.map*/
