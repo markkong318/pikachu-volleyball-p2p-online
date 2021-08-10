@@ -642,10 +642,10 @@ function printCurrentRoomID(roomId) {
 
   if (isHost()) {
     const url = `${window.location.href}?partyId=${prettyRoomId}`;
-    printLog(`Share this link to your friend:`, '#000000');
+    printLog(`Share this link to your friend:`, LOG_COLOR_INFO);
     printLog(
-      `<div onclick="navigator.share&&navigator.share({title:'Pikachu Volleyball',text:'Let\\&apos;s play the game',url:'${url}'})">${url} <img src="./img/share.png"></div>`,
-      '#000000'
+      `<div class="allow-copy">${url}<span onclick="navigator.share&&navigator.share({title:'Pikachu Volleyball',text:'Let\\&apos;s play the game',url:'${url}'})"><img src="./img/share.png"></span></div>`,
+      LOG_COLOR_INFO
     );
     printQrCodeLog(url);
   }
@@ -745,11 +745,15 @@ export function printNumberOfSuccessfulQuickMatches(
     String(withinLast10minutes);
 }
 
+export const LOG_COLOR_DEBUG = '#CCCCCC';
+export const LOG_COLOR_INFO = '#000000';
+export const LOG_COLOR_ERROR = '#A62424';
+
 /**
  * Print log to connection log box
  * @param {string} log
  */
-export function printLog(log, color = '#CCCCCC') {
+export function printLog(log, color = LOG_COLOR_DEBUG) {
   let elementId = 'connection-log-with-friend';
   if (channel.isQuickMatch) {
     elementId = 'connection-log-quick-match';
@@ -792,28 +796,39 @@ export function printPeriodInLog() {
 }
 
 export function printNotValidRoomIdMessage() {
-  printLog(document.getElementById('not-valid-room-id-message').textContent);
+  printLog(
+    document.getElementById('not-valid-room-id-message').textContent,
+    LOG_COLOR_ERROR
+  );
 }
 
 export function printNoRoomMatchingMessage() {
-  printLog(document.getElementById('no-room-matching-message').textContent);
+  printLog(
+    document.getElementById('no-room-matching-message').textContent,
+    LOG_COLOR_ERROR
+  );
 }
 
 export function printNoRoomMatchingMessageInQuickMatch() {
   printLog(
     document.getElementById('no-room-matching-message-in-quick-match')
-      .textContent
+      .textContent,
+    LOG_COLOR_ERROR
   );
 }
 
 export function printSomeoneElseAlreadyJoinedRoomMessage() {
   printLog(
-    document.getElementById('someone-esle-already-joined-the-room').textContent
+    document.getElementById('someone-esle-already-joined-the-room').textContent,
+    LOG_COLOR_ERROR
   );
 }
 
 export function printConnectionFailed() {
-  printLog(document.getElementById('connection-failed').textContent);
+  printLog(
+    document.getElementById('connection-failed').textContent,
+    LOG_COLOR_ERROR
+  );
 }
 
 export function showGameCanvas() {
